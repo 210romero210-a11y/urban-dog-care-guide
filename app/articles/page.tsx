@@ -42,34 +42,38 @@ export default function ArticlesPage() {
   const posts = getPosts();
 
   return (
-    <main className="min-h-screen bg-slate-900 text-slate-50">
+    <main className="min-h-screen bg-gradient-to-b from-slate-900 via-slate-900 to-slate-800 text-slate-50">
       {/* Header */}
       <header className="border-b border-slate-800 bg-slate-900/80 backdrop-blur-sm sticky top-0 z-50">
-        <div className="max-w-6xl mx-auto px-6 py-4">
+        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
           <Link href="/" className="text-amber-400 hover:text-amber-300 font-medium flex items-center gap-2">
             ← Back to Home
           </Link>
+          <span className="text-slate-500 text-sm">Urban Dog Care</span>
         </div>
       </header>
 
       <div className="max-w-6xl mx-auto px-6 py-16">
-        <h1 className="text-4xl md:text-5xl font-bold mb-4">
-          Dog Care <span className="text-amber-400">Articles</span>
-        </h1>
-        <p className="text-xl text-slate-400 mb-12 max-w-2xl">
-          Expert guides on training, health, grooming, nutrition, and gear for apartment dog owners.
-        </p>
+        <div className="mb-12">
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">
+            Dog Care <span className="text-amber-400">Articles</span>
+          </h1>
+          <p className="text-xl text-slate-400 max-w-2xl">
+            Expert guides on training, health, grooming, nutrition, and gear for apartment dog owners.
+          </p>
+        </div>
 
         {/* Posts Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {posts.map((post) => (
+          {posts.map((post, idx) => (
             <Link
               key={post.slug}
               href={`/articles/${post.slug}`}
-              className="bg-slate-800 rounded-xl p-6 hover:bg-slate-700 transition-all group block"
+              className="bg-slate-800/40 rounded-2xl p-6 hover:bg-slate-700/50 transition-all group block border border-slate-700/50 hover:border-amber-500/30"
+              style={{ animationDelay: `${idx * 50}ms` }}
             >
               <div className="flex items-center gap-3 mb-4">
-                <span className="px-3 py-1 bg-amber-500/20 text-amber-400 rounded-full text-xs font-medium">
+                <span className="px-3 py-1 bg-amber-500/15 text-amber-400 rounded-full text-xs font-medium">
                   {post.category}
                 </span>
                 <time className="text-slate-500 text-sm">{post.date}</time>
@@ -82,7 +86,7 @@ export default function ArticlesPage() {
               </p>
               <div className="flex flex-wrap gap-2">
                 {post.tags.slice(0, 3).map((tag) => (
-                  <span key={tag} className="text-xs text-slate-500">#{tag}</span>
+                  <span key={tag} className="text-xs text-slate-600">#{tag}</span>
                 ))}
               </div>
             </Link>
@@ -90,8 +94,9 @@ export default function ArticlesPage() {
         </div>
 
         {posts.length === 0 && (
-          <div className="text-center py-16 text-slate-500">
-            <p>No articles yet. Check back soon!</p>
+          <div className="text-center py-20">
+            <div className="text-5xl mb-4">🐕</div>
+            <p className="text-slate-500 text-lg">No articles yet. Check back soon!</p>
           </div>
         )}
       </div>
